@@ -1,11 +1,12 @@
 import React from 'react'
-import TakePhotoComponent from './components/TakePhotoComponent'
 
-function App() {
+import UploadPhoto from './components/UploadPhoto'
+
+const App = () => {
     return (
         <>
             <h1>App</h1>
-            <TakePhotoComponent />
+            <UploadPhoto />
         </>
     )
 }

@@ -1,0 +1,20 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "React PWA App",
+        "version": "1.0.0",
+        "description": "A PWA application that uses an AI model to answer questions. Takes image, voice or text as the input and outputs in text format."
+    },
+    "paths": {
+        "/api/hello": {
+            "get": {
+                "summary": "Sends Hello",
+                "responses": {
+                    "200": {
+                        "description": "Is a test route to check if the backend and frontend is working. And to see if the controller implementation is correct."
+                    }
+                }
+            }
+        }
+    }
+}
