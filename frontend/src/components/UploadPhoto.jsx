@@ -1,19 +1,33 @@
-const UploadPhoto = () => {
+import React, { useState } from 'react'
+import axios from 'axios'
+
+function App() {
+    const [selectedFile, setSelectedFile] = useState(null)
+
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0])
+    }
+
+    const handleFileUpload = async () => {
+        if (selectedFile) {
+            const formData = new FormData()
+            formData.append('file', selectedFile)
+
+            try {
+                await axios.post('http://localhost:2000/api/upload', formData)
+                console.log('File uploaded successfully')
+            } catch (error) {
+                console.error('Error uploading file', error)
+            }
+        }
+    }
+
     return (
         <div>
-            <div>Click the upload icon below to upload a file.</div>
-
-            <div className="container">
-                <div className="image-upload">
-                    <input
-                        id="file-input"
-                        type="file"
-                        accept="image/x-png,image/jpeg,image/jpg,image/png"
-                    />
-                </div>
-            </div>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handleFileUpload}>Upload File</button>
         </div>
     )
 }
 
-export default UploadPhoto
+export default App
