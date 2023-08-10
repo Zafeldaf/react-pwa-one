@@ -1,33 +1,61 @@
 import React, { useState } from 'react'
+import FormContainer from './FormContainer.jsx'
+import { Button, Form } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 import axios from 'axios'
+import env from 'react-dotenv'
 
-function App() {
-    const [selectedFile, setSelectedFile] = useState(null)
+const UploadPhoto = () => {
+    const [file, setFile] = useState(null)
 
-    const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0])
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0])
     }
 
-    const handleFileUpload = async () => {
-        if (selectedFile) {
-            const formData = new FormData()
-            formData.append('file', selectedFile)
-
+    const handleUpload = async () => {
+        if (file) {
             try {
-                await axios.post('http://localhost:2000/api/upload', formData)
-                console.log('File uploaded successfully')
+                const fileKey = `file_${Date.now()}_${file.name}`
+                const formData = new FormData()
+
+                formData.append('title', document.getElementById('title').value)
+                formData.append('file', file)
+
+                await axios.post(`http://localhost:2000/api/upload`, formData)
+                toast.success('File Uploaded')
             } catch (error) {
-                console.error('Error uploading file', error)
+                toast.error('File Not Uploaded')
             }
+        } else {
+            toast.error('Please select a file to upload.')
         }
     }
 
     return (
         <div>
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={handleFileUpload}>Upload File</button>
+            <FormContainer>
+                <h1>Upload Photo</h1>
+                <Form>
+                    <Form.Group className="my-2" controlId="title">
+                        <Form.Label>Title:</Form.Label>
+                        <Form.Control type="text" name="title" />
+                    </Form.Group>
+                    <Form.Group className="my-2" controlId="body">
+                        <Form.Label>Select Photo</Form.Label>
+                        <Form.Control type="file" onChange={handleFileChange} />
+                    </Form.Group>
+                    <Button
+                        onClick={handleUpload}
+                        type="button"
+                        variant="primary"
+                        className="my-2"
+                    >
+                        Upload
+                    </Button>
+                </Form>
+            </FormContainer>
         </div>
     )
 }
 
-export default App
+export default UploadPhoto
