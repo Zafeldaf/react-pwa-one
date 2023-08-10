@@ -1,26 +1,29 @@
-import { createBucketInstance } from '../services/bucket.js'
+import { uploadToS3 } from '../services/bucket.js'
+import Photo from '../models/photoModel.js'
+import { v4 as uuidv4 } from 'uuid'
 
-const uploadImage = (file) => {
-    return new Promise((resolve, reject) => {
-        const params = {
-            Bucket: 'mern-app-files',
-            Key: file.name,
-            Body: file.data,
-            ACL: 'public-read',
-        }
+export const uploadPhoto = async (req, res) => {
+    if (!req.files || !req.files.file) {
+        return res.status(400).json({ error: 'No file uploaded' })
+    }
 
-        console.log(params)
+    try {
+        const file = req.files.file
+        const fileKey = uuidv4() + '-img.png'
+        const url = await uploadToS3(file, fileKey)
 
-        const bucketInstance = createBucketInstance()
-
-        bucketInstance.upload(params, (err, data) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(data)
-            }
+        const photo = new Photo({
+            title: req.body.title,
+            imageUrl: url,
         })
-    })
-}
 
-export default uploadImage
+        const savedPhoto = await photo.save()
+
+        res.json({ message: 'File uploaded successfully', image: savedPhoto })
+    } catch (error) {
+        console.error('Error uploading file:', error)
+        res.status(500).json({
+            error: 'Failed to upload file or save to the database',
+        })
+    }
+}

@@ -3,7 +3,7 @@ import FormContainer from './FormContainer.jsx'
 import { Button, Form } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-import env from 'react-dotenv'
+// import env from 'react-dotenv'
 
 const UploadPhoto = () => {
     const [file, setFile] = useState(null)
@@ -21,7 +21,7 @@ const UploadPhoto = () => {
                 formData.append('title', document.getElementById('title').value)
                 formData.append('file', file)
 
-                await axios.post(`http://localhost:2000/api/upload`, formData)
+                await axios.post(`/api/upload`, formData)
                 toast.success('File Uploaded')
             } catch (error) {
                 toast.error('File Not Uploaded')
