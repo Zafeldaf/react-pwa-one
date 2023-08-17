@@ -1,11 +1,13 @@
 import React from 'react'
-
+import './App.css'
 import UploadPhoto from './components/UploadPhoto'
 
 const App = () => {
     return (
         <>
-            <h1>App</h1>
+            <div className="header">
+                <h1>PWA</h1>
+            </div>
             <UploadPhoto />
         </>
     )
