@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
-import UploadPhoto from './components/UploadPhoto'
+import Login from './components/Login'
+import Register from './components/Register'
 
 const router = createBrowserRouter([
     {
@@ -10,8 +11,12 @@ const router = createBrowserRouter([
         element: <App />,
     },
     {
-        path: '/chat',
-        element: <UploadPhoto />,
+        path: '/login',
+        element: <Login />,
+    },
+    {
+        path: '/signup',
+        element: <Register />,
     },
 ])
 

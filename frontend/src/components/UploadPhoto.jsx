@@ -3,7 +3,6 @@ import FormContainer from './FormContainer.jsx'
 import { Button, Form } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-// import env from 'react-dotenv'
 
 const UploadPhoto = () => {
     const [file, setFile] = useState(null)
@@ -15,7 +14,6 @@ const UploadPhoto = () => {
     const handleUpload = async () => {
         if (file) {
             try {
-                const fileKey = `file_${Date.now()}_${file.name}`
                 const formData = new FormData()
 
                 formData.append('title', document.getElementById('title').value)
