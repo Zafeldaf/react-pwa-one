@@ -1,15 +1,17 @@
 import React from 'react'
 import './App.css'
-import UploadPhoto from './components/UploadPhoto'
+import Button from '@mui/material/Button'
 
 const App = () => {
+    const handleSignout = () => {
+        localStorage.removeItem('token')
+        window.location.href = '/login'
+    }
+
     return (
-        <>
-            <div className="header">
-                <h1>PWA</h1>
-            </div>
-            <UploadPhoto />
-        </>
+        <Button onClick={handleSignout} variant="outlined" color="secondary">
+            Sign Out
+        </Button>
     )
 }
 

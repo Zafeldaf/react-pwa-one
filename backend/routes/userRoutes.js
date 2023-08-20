@@ -12,6 +12,7 @@ router.post('/upload', uploadPhoto)
 
 router.post('/register', userController.registerUser)
 router.post('/login', userController.loginUser)
+router.post('/verify-email', userController.verifyEmail)
 
 router.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 

@@ -9,6 +9,7 @@ import Button from '@mui/material/Button'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Image from '../background-image.jpg'
 
 export default function Register() {
     const [firstName, setFirstName] = useState('')
@@ -27,16 +28,6 @@ export default function Register() {
                 window.location.href = '/'
             }, 1000)
         } else {
-            if (password !== confirmPassword) {
-                return toast.error("Passwords don't match")
-            }
-
-            if (password.length < 8) {
-                return toast.error(
-                    'Password should at least be 8 characters long'
-                )
-            }
-
             if (
                 !firstName ||
                 !lastName ||
@@ -46,6 +37,15 @@ export default function Register() {
             ) {
                 toast.error('You have to fill in all the forms.')
             }
+            if (password.length < 8) {
+                return toast.error(
+                    'Password should at least be 8 characters long'
+                )
+            }
+            if (password !== confirmPassword) {
+                return toast.error("Passwords don't match")
+            }
+
             const registrationData = {
                 firstName,
                 lastName,
@@ -84,7 +84,7 @@ export default function Register() {
                 <Box
                     sx={{
                         flex: 1,
-                        background: `url('https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2') center/cover no-repeat`,
+                        background: `url(${Image}) center/cover no-repeat`,
                         height: '100vh',
                     }}
                 ></Box>

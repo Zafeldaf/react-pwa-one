@@ -14,11 +14,10 @@ connectDB()
 const app = express()
 
 app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
-app.use(fileUpload({}))
-
-app.use('/api', userRoutes)
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use(cookieParser())
+    .use(fileUpload({}))
+    .use('/api', userRoutes)
 
 app.listen(port, () => console.log(`Server started on port ${port}`))

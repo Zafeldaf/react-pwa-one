@@ -9,6 +9,7 @@ import Button from '@mui/material/Button'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Image from '../background-image.jpg'
 
 export default function Register() {
     const [email, setEmail] = useState('')
@@ -24,12 +25,6 @@ export default function Register() {
                 window.location.href = '/'
             }, 1500)
         } else {
-            if (password.length < 8) {
-                return toast.error(
-                    'Password should at least be 8 characters long'
-                )
-            }
-
             if (!email || !password) {
                 return toast.error('Email and Password are required')
             }
@@ -43,6 +38,10 @@ export default function Register() {
                 const response = await axios.post('/api/login', loginData)
                 localStorage.setItem('token', response.data.token)
                 toast.success('Login successful!')
+
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 1500)
             } catch (error) {
                 console.error('Login failed:', error)
                 toast.error('Login failed. Please try again.')
@@ -65,7 +64,7 @@ export default function Register() {
                 <Box
                     sx={{
                         flex: 1,
-                        background: `url('https://images.unsplash.com/photo-1527181152855-fc03fc7949c8?auto=format&w=1000&dpr=2') center/cover no-repeat`,
+                        background: `url(${Image}) center/cover no-repeat`,
                         height: '100vh',
                     }}
                 ></Box>
@@ -91,7 +90,7 @@ export default function Register() {
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'flex-end',
-                                marginBottom: '-1rem',
+                                marginBottom: '1rem',
                             }}
                         >
                             <Button variant="outlined" onClick={toRegister}>
